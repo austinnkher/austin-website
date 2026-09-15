@@ -1,0 +1,702 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Austin Kher — Senior Salesforce Consultant</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F6F5FC;
+    --bg-soft: #FFFFFF;
+    --surface: rgba(255,255,255,0.72);
+    --surface-solid: #FFFFFF;
+    --ink: #14142B;
+    --muted: #656487;
+    --line: rgba(20,20,43,0.09);
+
+    --iris: #2563EB;
+    --violet: #3B82F6;
+    --pink: #38BDF8;
+    --teal: #0891B2;
+    --cyan: #22D3EE;
+
+    --grad-main: linear-gradient(135deg, var(--iris) 0%, var(--violet) 50%, var(--pink) 100%);
+    --grad-soft: linear-gradient(135deg, rgba(37,99,235,0.14), rgba(56,189,248,0.12));
+    --grad-1: linear-gradient(90deg, var(--iris), var(--violet));
+    --grad-2: linear-gradient(90deg, var(--pink), #7DD3FC);
+    --grad-3: linear-gradient(90deg, var(--teal), var(--cyan));
+
+    --shadow-sm: 0 1px 2px rgba(20,20,43,0.06);
+    --shadow-md: 0 8px 24px rgba(20,20,43,0.08);
+    --shadow-lg: 0 24px 60px rgba(20,20,43,0.12);
+
+    --font-display: 'Bricolage Grotesque', ui-sans-serif, system-ui, sans-serif;
+    --font-body: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
+    --font-mono: 'Space Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+    color-scheme: light;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  html, body { background: var(--bg); }
+
+  body {
+    margin: 0;
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-size: 17px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  ::selection { background: var(--iris); color: #fff; }
+
+  a { color: var(--iris); text-decoration: none; }
+
+  a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
+    outline: 2px solid var(--iris);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  .wrap {
+    max-width: 980px;
+    margin-inline: auto;
+    padding-inline: 24px;
+  }
+
+  /* ---------- background blobs ---------- */
+  .blob-field {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+  }
+  .blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(70px);
+    opacity: 0.5;
+    will-change: transform;
+  }
+  .blob-a { width: 480px; height: 480px; top: -180px; left: -120px; background: radial-gradient(circle, var(--iris), transparent 70%); animation: float-a 22s ease-in-out infinite; }
+  .blob-b { width: 520px; height: 520px; top: 10%; right: -220px; background: radial-gradient(circle, var(--pink), transparent 70%); animation: float-b 26s ease-in-out infinite; }
+  .blob-c { width: 420px; height: 420px; bottom: -160px; left: 30%; background: radial-gradient(circle, var(--teal), transparent 70%); animation: float-c 24s ease-in-out infinite; opacity: 0.4; }
+
+  @keyframes float-a {
+    0%, 100% { transform: translate(0,0) scale(1); }
+    50% { transform: translate(40px, 60px) scale(1.08); }
+  }
+  @keyframes float-b {
+    0%, 100% { transform: translate(0,0) scale(1); }
+    50% { transform: translate(-50px, 40px) scale(1.05); }
+  }
+  @keyframes float-c {
+    0%, 100% { transform: translate(0,0) scale(1); }
+    50% { transform: translate(30px, -30px) scale(1.1); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .blob { animation: none !important; }
+    .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+  }
+
+  /* ---------- nav ---------- */
+  nav.topnav {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    backdrop-filter: blur(14px) saturate(160%);
+    -webkit-backdrop-filter: blur(14px) saturate(160%);
+    background: color-mix(in srgb, var(--bg) 78%, transparent);
+    border-bottom: 1px solid var(--line);
+  }
+  .topnav-inner {
+    max-width: 980px;
+    margin-inline: auto;
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .brand {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.05rem;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+  .brand span {
+    background: var(--grad-main);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .nav-links {
+    display: flex;
+    gap: 28px;
+    font-size: 14.5px;
+    font-weight: 500;
+  }
+  .nav-links a { color: var(--muted); transition: color 0.2s ease; }
+  .nav-links a:hover { color: var(--ink); }
+  .nav-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 18px;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff !important;
+    background: var(--grad-main);
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    white-space: nowrap;
+  }
+  .nav-cta:hover { transform: translateY(-1px); box-shadow: var(--shadow-md); }
+
+  @media (max-width: 680px) {
+    .nav-links { display: none; }
+  }
+
+  /* ---------- hero ---------- */
+  header.hero {
+    position: relative;
+    padding-block: 96px 88px;
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--iris);
+    background: var(--grad-soft);
+    border: 1px solid var(--line);
+    padding: 7px 14px;
+    border-radius: 999px;
+    margin: 0 0 26px;
+  }
+  .eyebrow-logo {
+    width: 15px; height: 15px;
+    flex-shrink: 0;
+  }
+
+  h1.name {
+    font-family: var(--font-display);
+    font-optical-sizing: auto;
+    font-weight: 800;
+    font-size: clamp(2.8rem, 7vw, 5rem);
+    line-height: 1.0;
+    letter-spacing: -0.03em;
+    margin: 0 0 18px;
+    text-wrap: balance;
+    background: var(--grad-main);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .hero-sub {
+    max-width: 52ch;
+    margin: 0 0 36px;
+    color: var(--muted);
+    font-size: 18px;
+    line-height: 1.55;
+    text-wrap: balance;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-bottom: 44px;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    padding: 13px 24px;
+    border-radius: 999px;
+    font-size: 15px;
+    font-weight: 600;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  }
+  .btn-primary {
+    color: #fff;
+    background: var(--grad-main);
+    box-shadow: var(--shadow-md);
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+  .btn-ghost {
+    color: var(--ink);
+    background: var(--surface);
+    border-color: var(--line);
+    backdrop-filter: blur(8px);
+  }
+  .btn-ghost:hover { border-color: var(--iris); color: var(--iris); transform: translateY(-2px); }
+  .btn svg { width: 17px; height: 17px; flex-shrink: 0; }
+
+  /* ---------- sections ---------- */
+  section.block {
+    padding-block: 84px;
+    position: relative;
+  }
+  section.block.alt-bg {
+    background: linear-gradient(180deg, transparent, color-mix(in srgb, var(--iris) 4%, transparent) 50%, transparent);
+  }
+
+  .section-head { margin-bottom: 40px; }
+
+  h2.section-title {
+    font-family: var(--font-display);
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-size: clamp(1.6rem, 3.4vw, 2.1rem);
+    letter-spacing: -0.02em;
+    margin: 0;
+    text-wrap: balance;
+  }
+
+  .prose p:not(.eyebrow) {
+    max-width: 64ch;
+    margin: 0 0 18px;
+    color: var(--muted);
+    font-size: 16.5px;
+  }
+  .prose p:not(.eyebrow):last-child { margin-bottom: 0; }
+
+  /* ---------- experience ---------- */
+  .exp-list {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+  }
+  .exp-card {
+    background: var(--surface-solid);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 28px 26px;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .exp-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+  .exp-top {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 10px 24px;
+    margin-bottom: 16px;
+  }
+  .exp-company {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.15rem;
+    margin: 0 0 4px;
+  }
+  .exp-role {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 600;
+    background: var(--grad-main);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .exp-meta { text-align: right; }
+  .exp-dates {
+    margin: 0 0 4px;
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+  .exp-location {
+    margin: 0;
+    font-size: 12.5px;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+  .exp-bullets {
+    margin: 0;
+    padding-left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .exp-bullets li {
+    color: var(--muted);
+    font-size: 15px;
+    line-height: 1.5;
+  }
+  .exp-bullets li::marker { color: var(--iris); }
+
+  @media (max-width: 600px) {
+    .exp-meta { text-align: left; }
+  }
+
+  /* ---------- certifications ---------- */
+  .cert-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .cert-pill {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    padding: 10px 18px;
+    border-radius: 999px;
+    background: var(--surface-solid);
+    border: 1px solid var(--line);
+    color: var(--ink);
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .cert-pill:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+
+  /* ---------- work grid ---------- */
+  .work-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px;
+  }
+
+  .work-card {
+    position: relative;
+    background: var(--surface-solid);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 26px 24px;
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .work-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: var(--card-grad, var(--grad-1));
+  }
+  .work-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
+
+  .work-tag {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--iris);
+    margin-bottom: 14px;
+    display: inline-block;
+    padding: 5px 11px;
+    border-radius: 999px;
+    background: var(--grad-soft);
+  }
+
+  .work-card h3 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.18rem;
+    margin: 0 0 10px;
+    text-wrap: balance;
+  }
+
+  .work-card p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 15px;
+  }
+
+  /* ---------- connect ---------- */
+  .connect-panel {
+    background: var(--grad-main);
+    border-radius: 28px;
+    padding: 52px 40px;
+    color: #fff;
+    box-shadow: var(--shadow-lg);
+    position: relative;
+    overflow: hidden;
+  }
+  .connect-panel h2.section-title { color: #fff; }
+
+  .connect-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 18px;
+    margin-top: 32px;
+  }
+
+  .connect-field {
+    padding: 20px 22px;
+    background: rgba(255,255,255,0.14);
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 16px;
+    backdrop-filter: blur(6px);
+    transition: transform 0.2s ease, background 0.2s ease;
+  }
+  .connect-field:hover { transform: translateY(-3px); background: rgba(255,255,255,0.2); }
+
+  .connect-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.75);
+    margin: 0 0 10px;
+  }
+
+  .connect-value {
+    font-family: var(--font-mono);
+    font-size: 15.5px;
+    font-weight: 700;
+    color: #fff !important;
+    word-break: break-word;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .connect-value svg { width: 16px; height: 16px; opacity: 0.9; }
+
+  footer {
+    padding-block: 40px 56px;
+    text-align: center;
+  }
+
+  footer p {
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    color: var(--muted);
+    margin: 0;
+  }
+
+  /* ---------- reveal on scroll ---------- */
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  @media (max-width: 480px) {
+    header.hero { padding-block: 64px 56px; }
+    section.block { padding-block: 56px; }
+    .connect-panel { padding: 36px 22px; border-radius: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="blob-field" aria-hidden="true">
+  <div class="blob blob-a"></div>
+  <div class="blob blob-b"></div>
+  <div class="blob blob-c"></div>
+</div>
+
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a class="brand" href="#top" style="color:inherit;">Austin <span>Kher</span></a>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#experience">Experience</a>
+      <a href="#work">Work</a>
+      <a href="#connect">Connect</a>
+    </div>
+    <a class="nav-cta" href="#connect">My Details</a>
+  </div>
+</nav>
+
+<header class="hero wrap" id="top">
+  <p class="eyebrow">
+    <svg class="eyebrow-logo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9z"/></svg>
+    Senior Salesforce Consultant — Melbourne, Australia
+  </p>
+  <h1 class="name">Austin Kher</h1>
+  <p class="hero-sub">I turn stakeholder requirements into Salesforce solutions that hold up under real use &mdash; discovery, automation and release delivery, end to end.</p>
+
+  <div class="hero-actions">
+    <a class="btn btn-primary" href="#connect">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z" stroke="none"/><path d="M22 6 12 13 2 6"/><path d="M2 6h20v12H2z"/></svg>
+      Let's talk
+    </a>
+    <a class="btn btn-ghost" href="#work">See my work</a>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="block prose reveal" id="about">
+    <div class="section-head">
+      <h2 class="section-title">About me</h2>
+    </div>
+    <p>I'm a Senior Salesforce Consultant based in Melbourne, currently acting as functional lead at Monks (Mighty Hive), where I own system/solution design, configuration and release planning end to end. Before that I spent four years at Deloitte Digital, working my way from Salesforce Graduate to Senior Consultant across public sector, government and healthcare engagements.</p>
+    <p>My day-to-day is leading discovery, turning stakeholder requirements into solution-aligned process flows, and building the automation flows, approval processes, record types, page layouts that makes a Salesforce org hold up under real use. I also lead the solution design, coordinate release cycles across environments, and run backlog refinement using Agile delivery practices.</p>
+  </section>
+
+  <section class="block alt-bg reveal" id="experience">
+    <div class="section-head">
+      <h2 class="section-title">Where I've done the work</h2>
+    </div>
+    <div class="exp-list">
+      <div class="exp-card">
+        <div class="exp-top">
+          <div>
+            <h3 class="exp-company">Monks (Mighty Hive)</h3>
+            <p class="exp-role">Senior Salesforce Consultant</p>
+          </div>
+          <div class="exp-meta">
+            <p class="exp-dates">August 2026 &ndash; Present</p>
+            <p class="exp-location">Melbourne, VIC</p>
+          </div>
+        </div>
+        <ul class="exp-bullets">
+          <li>Acting as functional and platform lead overseeing system design, configuration and release planning.</li>
+          <li>Owning and leading end-to-end discovery, defining business objectives, and converting insights into solution-aligned process flows.</li>
+          <li>Designing and building advanced automation flows to streamline approval processes, status transitions and notifications across the platform.</li>
+        </ul>
+      </div>
+
+      <div class="exp-card">
+        <div class="exp-top">
+          <div>
+            <h3 class="exp-company">Deloitte Digital</h3>
+            <p class="exp-role">Salesforce Consultant &rarr; Senior Salesforce Consultant</p>
+          </div>
+          <div class="exp-meta">
+            <p class="exp-dates">July 2022 &ndash; June 2026</p>
+            <p class="exp-location">Melbourne, VIC</p>
+          </div>
+        </div>
+        <ul class="exp-bullets">
+          <li>Acted as functional and platform lead overseeing system design, configuration and release planning.</li>
+          <li>Owned and led end-to-end discovery, defining business objectives, and converting insights into solution-aligned process flows.</li>
+          <li>Designed and built advanced automation flows to streamline approval processes, status transitions and notifications across the platform.</li>
+          <li>Configured and refined record types, page layouts, custom fields and Lightning applications to improve data integrity and create a streamlined user experience.</li>
+          <li>Led and drove the UX and solution design process, producing low and high-fidelity wireframes.</li>
+          <li>Coordinated release cycles across Salesforce environments, supporting deployment planning and production readiness.</li>
+          <li>Owned backlog refinement, enabling effective sequencing of Salesforce front-end and back-end requirements using Agile delivery practices.</li>
+          <li>Supported user and license management including roles, permission sets and sharing considerations to maintain secure data access.</li>
+          <li>Translated stakeholder requirements into out-of-the-box and custom Salesforce configuration including flows, automation, record types, page layouts, approval processes, dashboards and reporting.</li>
+          <li>Conducted a Salesforce Associate knowledge-sharing session and bootcamp, with all 5 junior team members obtaining their Salesforce Associate Certification within one month.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="block reveal" id="work">
+    <div class="section-head">
+      <h2 class="section-title">Past Project Engagements</h2>
+    </div>
+    <div class="work-grid">
+      <div class="work-card" style="--card-grad: var(--grad-1);">
+        <span class="work-tag">Health Cloud</span>
+        <h3>Eastern Health</h3>
+        <p>Led end-to-end delivery of a Salesforce Health Cloud solution for Eastern Health, streamlining patient management and scheduling and driving greater efficiency and data accuracy across the team.</p>
+      </div>
+      <div class="work-card" style="--card-grad: var(--grad-2);">
+        <span class="work-tag">Experience Cloud</span>
+        <h3>Victoria Water Registry</h3>
+        <p>Built an Experience Cloud proof of concept and presented it to the Victorian Water Registry, demonstrating the platform's fit for their needs and securing them as a new client.</p>
+      </div>
+      <div class="work-card" style="--card-grad: var(--grad-3);">
+        <span class="work-tag">Education</span>
+        <h3>Department of Education</h3>
+        <p>Delivered a CRM portal for the Department of Education Victoria connecting students, teachers and staff, supporting learning programs, session scheduling and day-to-day management.</p>
+      </div>
+      <div class="work-card" style="--card-grad: var(--grad-1);">
+        <span class="work-tag">Experience Cloud</span>
+        <h3>City of Gold Coast</h3>
+        <p>Built a customer-facing CRM portal and backend Salesforce system for the City of Gold Coast, giving council staff a single place to track everything council-related alongside a customised portal for residents.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block alt-bg reveal" id="certifications">
+    <div class="section-head">
+      <h2 class="section-title">Certifications</h2>
+    </div>
+    <div class="cert-pills">
+      <span class="cert-pill">Salesforce Certified Administrator</span>
+      <span class="cert-pill">Salesforce Certified Business Analyst</span>
+      <span class="cert-pill">Salesforce Certified Platform App Builder</span>
+      <span class="cert-pill">Salesforce Certified AI Associate</span>
+      <span class="cert-pill">Salesforce Certified Associate</span>
+    </div>
+  </section>
+
+  <section class="block reveal" id="connect">
+    <div class="connect-panel">
+      <h2 class="section-title">Based in Melbourne, working with teams anywhere</h2>
+      <div class="connect-grid">
+        <div class="connect-field">
+          <p class="connect-label">Email</p>
+          <a class="connect-value" href="mailto:austin_kher@outlook.com">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 6 12 13 2 6"/><path d="M2 6h20v12H2z"/></svg>
+            austin_kher@outlook.com
+          </a>
+        </div>
+        <div class="connect-field">
+          <p class="connect-label">LinkedIn</p>
+          <a class="connect-value" href="https://www.linkedin.com/in/austin-kher" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+            linkedin.com/in/austin-kher
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="wrap">
+  <p id="footer-line">&copy; Austin Kher</p>
+</footer>
+
+<script>
+  (function () {
+    try {
+      var y = new Date().getFullYear();
+      document.getElementById('footer-line').textContent = '© ' + y + ' Austin Kher';
+    } catch (e) {}
+  })();
+
+  (function () {
+    var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var items = document.querySelectorAll('.reveal');
+    if (reduceMotion || !('IntersectionObserver' in window)) {
+      items.forEach(function (el) { el.classList.add('is-visible'); });
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    items.forEach(function (el) { io.observe(el); });
+  })();
+</script>
+</body>
+</html>
