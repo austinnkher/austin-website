@@ -173,7 +173,7 @@
   /* ---------- hero ---------- */
   header.hero {
     position: relative;
-    padding-block: 96px 88px;
+    padding-block: 96px 48px;
   }
 
   .eyebrow {
@@ -258,6 +258,9 @@
   section.block {
     padding-block: 84px;
     position: relative;
+  }
+  header.hero + main #about {
+    padding-top: 40px;
   }
   section.block.alt-bg {
     background: linear-gradient(180deg, transparent, color-mix(in srgb, var(--iris) 4%, transparent) 50%, transparent);
@@ -499,7 +502,8 @@
   }
 
   @media (max-width: 480px) {
-    header.hero { padding-block: 64px 56px; }
+    header.hero { padding-block: 64px 32px; }
+    header.hero + main #about { padding-top: 24px; }
     section.block { padding-block: 56px; }
     .connect-panel { padding: 36px 22px; border-radius: 20px; }
   }
